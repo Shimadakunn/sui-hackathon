@@ -1,10 +1,11 @@
 #[test_only]
 module staking_protocol::staking_tests{
 
+    // Import necessary modules
+     use sui::coin::{Self, TreasuryCap};
     use staking_protocol::farm::{Self, FARM};
     use staking_protocol::vault::{Self, RewardState, UserState, Treasury, AdminCap};
     use sui::clock;
-    use sui::coin;
     use sui::sui::SUI;
     use sui::test_scenario;
     use sui::math;
@@ -28,6 +29,7 @@ module staking_protocol::staking_tests{
      - Vault has 300 FARM tokens left
     */
 
+    // Error constants
     const EIncorrectRewardRate: u64 = 101;
     const EIncorrectRewardBalance: u64 = 102;
     const EIncorrectUserReward: u64 = 103;
@@ -35,10 +37,12 @@ module staking_protocol::staking_tests{
     #[test]
     fun test_example(){
 
+        // Define test addresses
         let owner = @0x1;
         let john = @0x2;
         let elise = @0x3;
 
+        // Begin test scenario
         let scenario_val = test_scenario::begin(owner);
         let scenario = &mut scenario_val;
         {   // Owner deploys the contracts
@@ -80,6 +84,7 @@ module staking_protocol::staking_tests{
             let rewardState = test_scenario::take_shared<RewardState>(scenario);
             let userState = test_scenario::take_shared<UserState>(scenario);
             let treasury = test_scenario::take_shared<Treasury>(scenario);
+            let treasury_cap = test_scenario::take_shared<TreasuryCap<FARM>>(scenario);
 
             let ctx = test_scenario::ctx(scenario);
             let clock = clock::create_for_testing(ctx);
@@ -88,7 +93,7 @@ module staking_protocol::staking_tests{
             let sui = coin::mint_for_testing<SUI>(num_coins, ctx);
 
             // John stakes 10 Sui
-            vault::stake(sui, &mut userState, &mut rewardState, &mut treasury, &clock, ctx);
+            vault::stake(sui, &mut treasury_cap, &mut userState, &mut rewardState, &mut treasury, &clock, ctx);
 
             // Return fetched objects
             test_scenario::return_shared(rewardState);
@@ -101,6 +106,7 @@ module staking_protocol::staking_tests{
             let rewardState = test_scenario::take_shared<RewardState>(scenario);
             let userState = test_scenario::take_shared<UserState>(scenario);
             let treasury = test_scenario::take_shared<Treasury>(scenario);
+            let treasury_cap = test_scenario::take_shared<TreasuryCap<FARM>>(scenario);
 
             let ctx = test_scenario::ctx(scenario);
             let clock = clock::create_for_testing(ctx);
@@ -109,7 +115,7 @@ module staking_protocol::staking_tests{
             let sui = coin::mint_for_testing<SUI>(num_coins, ctx);
 
             // Elise stakes 20 Sui
-            vault::stake(sui, &mut userState, &mut rewardState, &mut treasury, &clock, ctx);
+            vault::stake(sui, &mut treasury_cap, &mut userState, &mut rewardState, &mut treasury, &clock, ctx);
 
             // Return fetched objects
             test_scenario::return_shared(rewardState);
@@ -122,6 +128,7 @@ module staking_protocol::staking_tests{
             let rewardState = test_scenario::take_shared<RewardState>(scenario);
             let userState = test_scenario::take_shared<UserState>(scenario);
             let treasury = test_scenario::take_shared<Treasury>(scenario);
+            let treasury_cap = test_scenario::take_shared<TreasuryCap<FARM>>(scenario);
 
             let ctx = test_scenario::ctx(scenario);
             let clock = clock::create_for_testing(ctx);
@@ -130,7 +137,7 @@ module staking_protocol::staking_tests{
             let sui = coin::mint_for_testing<SUI>(num_coins, ctx);
 
             // John stakes 30 Sui
-            vault::stake(sui, &mut userState, &mut rewardState, &mut treasury, &clock, ctx);
+            vault::stake(sui, &mut treasury_cap, &mut userState, &mut rewardState, &mut treasury, &clock, ctx);
 
             // Return fetched objects
             test_scenario::return_shared(rewardState);
@@ -192,6 +199,7 @@ module staking_protocol::staking_tests{
             test_scenario::return_shared(treasury);
             clock::destroy_for_testing(clock);
         };
+        // End the test scenario
         test_scenario::end(scenario_val);
     }
 }

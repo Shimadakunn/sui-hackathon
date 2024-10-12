@@ -7,3 +7,5 @@ Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-fram
 
 [addresses]
 staking_protocol = "0x0"
+farm = "0x1"
+

@@ -62,6 +62,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.13)
+      transactions:
+        specifier: link:@mysten/sui/transactions
+        version: link:@mysten/sui/transactions
     devDependencies:
       '@types/node':
         specifier: ^20

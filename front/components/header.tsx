@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useCurrentAccount, useSuiClientQuery } from "@mysten/dapp-kit";
+import { formatBalance } from "@/utils/formatBalance";
+import { Wallet } from "lucide-react";
 
 export function Header() {
+  const account = useCurrentAccount();
   const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
@@ -18,12 +22,56 @@ export function Header() {
     return () => clearInterval(timerId); // Cleanup on unmount
   }, []);
 
+  const { data, isPending, isError } = useSuiClientQuery("getAllBalances", {
+    owner: "0xd2278c9f785577cd97af46ccb968f583170fffaf196b935e6b5c6ec1e0e5684a",
+  });
+
   return (
     <div className="flex items-center justify-between h-[8vh] border-b-2 border-black w-[95vw]">
       <div className="text-4xl font-bold flex items-center gap-2">
-        <Image src={`/logo.svg`} alt="logo" width={35} height={35} />
+        <Image src={`/farm.svg`} alt="logo" width={35} height={35} />
         SuiPaper
       </div>
+
+      {account && (
+        <>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
+              <Wallet size={16} strokeWidth={2.5} />
+              {account.address.slice(0, 4)}...
+            </div>
+            {data && (
+              <div className="flex items-center gap-1">
+                <Image src={`/sui.svg`} alt="sui" width={16} height={16} />
+                {formatBalance(
+                  parseFloat(
+                    data.find((coin) => coin.coinType === "0x2::sui::SUI")
+                      ?.totalBalance || "0"
+                  ) / 1e9,
+                  2
+                )}
+              </div>
+            )}
+            {data && (
+              <div className="flex items-center gap-1">
+                <Image src={`/farm.svg`} alt="sui" width={16} height={16} />
+                {formatBalance(
+                  parseFloat(
+                    data.find(
+                      (coin) =>
+                        coin.coinType ===
+                        "0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7::farm::FARM"
+                    )?.totalBalance || "0"
+                  ) / 1e9,
+                  2
+                )}
+              </div>
+            )}
+            {isPending && <div>Loading...</div>}
+            {isError && <div>Error</div>}
+          </div>
+        </>
+      )}
 
       <div className=" items-center flex gap-1 justify-center ">
         <div>Lausanne</div>

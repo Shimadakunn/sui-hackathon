@@ -19,7 +19,7 @@ module staking_protocol::farm{
         transfer::public_transfer(treasury_cap, tx_context::sender(ctx));
     }
 
-    public entry fun mint(treasury_cap: &mut TreasuryCap<FARM>, amount: u64, recipient: address, ctx: &mut TxContext) {
+    public entry fun mint_to(treasury_cap: &mut TreasuryCap<FARM>, amount: u64, recipient: address, ctx: &mut TxContext) {
         
         // Mint and transfer specified amount of tokens from the treasury to the recipient.
         coin::mint_and_transfer(treasury_cap, amount, recipient, ctx);

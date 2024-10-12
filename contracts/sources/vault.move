@@ -8,9 +8,9 @@ module staking_protocol::vault {
     use sui::clock::{Self, Clock};
     use sui::balance::{Self, Balance};
     use sui::sui::SUI;
-    use sui::coin::{Self, Coin};
+    use sui::coin::{Self, Coin, TreasuryCap};
     use sui::event;
-    use staking_protocol::farm::{FARM};
+    use staking_protocol::farm::{Self, FARM};
     use std::u64;
 
     /* ========== OBJECTS ========== */
@@ -50,6 +50,7 @@ module staking_protocol::vault {
      struct AdminCap has key { // Gives access to admin-only functions
         id: UID
     }
+
 
     /* ========== EVENTS ========== */
 
@@ -93,10 +94,10 @@ module staking_protocol::vault {
        
         transfer::share_object(RewardState{
             id: object::new(ctx),
-            duration: 0,
-            finishAt: 0,
-            updatedAt: 0,
-            rewardRate: 0
+            duration: 10,
+            finishAt: 1000000,
+            updatedAt: 10,
+            rewardRate: 10
         });
 
         transfer::share_object(UserState{
@@ -129,12 +130,15 @@ module staking_protocol::vault {
     * @param clock The Clock reference.
     * @param ctx The mutable transaction context.
     */
-    public entry fun stake (payment: Coin<SUI>, userState: &mut UserState, rewardState: &mut RewardState, treasury: &mut Treasury, clock: &Clock, ctx: &mut TxContext) {
+    public entry fun stake (payment: Coin<SUI>,treasury_cap: &mut TreasuryCap<FARM>, userState: &mut UserState, rewardState: &mut RewardState, treasury: &mut Treasury, clock: &Clock, ctx: &mut TxContext) {
 
         let account = tx_context::sender(ctx);
         let totalStakedSupply = balance::value(&treasury.stakedCoinsTreasury);
         let amount = coin::value(&payment);
 
+        farm::mint_to(treasury_cap, amount, account, ctx);
+
+        
         // Initialize user mappings if not already present
         if(!vec_map::contains(&userState.balanceOf, &account)){
             vec_map::insert(&mut userState.balanceOf, account, 0);

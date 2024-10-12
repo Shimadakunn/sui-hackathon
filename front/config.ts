@@ -1,0 +1,14 @@
+export const ADMIN_CAP =
+  "0x011959cbc5c4101d919e7ebf5bcb97f609ce971f324352397504c03eb4e882a3";
+export const UPGRADE_CAP =
+  "0x9b9ea48568446e1c89a9633925c994b1890d44c9eff6bcdbb4283bcdf5881dfc";
+export const TREASURY =
+  "0x19e130ae9a439a95cd8555541138ea831d68c7fbd599e20ab8b338a656318d2f";
+export const USER_STATE =
+  "0xd2d1a8074e78766171ef23f6f2b456d4a25e3ec50fb401eb64e8aa462ef4975d";
+export const REWARD_STATE =
+  "0xa78a95eff0900ed8412aa607d89edd297c8080e35b1e98aca5c1f31e0ad768c7";
+export const COIN_TREASURY_CAP =
+  "0x38dcaa5edf6e17c52433957815a455b423bfa62d7c4fddaeb285c0f4dc4e14c8";
+export const PACKAGE =
+  "0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7";
