@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://kuma-hedera.vercel.app/favicon.ico" width="100"/>
+<img src="https://suipaper.vercel.app/favicon.ico" width="100"/>
 <h1 align="center" style="margin-bottom: 0">SuiPapers</h1>
 </div>
 
