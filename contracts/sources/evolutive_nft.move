@@ -1,4 +1,4 @@
-module my_nft_contract_ev::my_nft_contract_ev {
+module my_nfg_contract_ev2::my_nfg_contract_ev2  {
     use sui::dynamic_field as df;
     use sui::url::{Self, Url};
     use std::string;
@@ -67,7 +67,7 @@ module my_nft_contract_ev::my_nft_contract_ev {
         let initial_state = StateData {
             id: object::new(ctx), // Create a unique ID for the state data
             state: 0, // Initial state
-            image: url::new_unsafe_from_bytes(b"https://www.handinorme.com/8677-thickbox_default/plaque-signaletique-en-drapeau-plexi-niveau-1-.jpg"),
+            image: url::new_unsafe_from_bytes(b"https://emerald-rear-parakeet-3.mypinata.cloud/ipfs/QmdCZnYjwCfh3nhZWqzTgFDsahUDkL8EoRXhX5wHEjrhje"),
         };
 
         // Store the state data in dynamic fields
@@ -89,15 +89,14 @@ module my_nft_contract_ev::my_nft_contract_ev {
     ctx: &mut TxContext
 ) {
     // Ensure the new state is valid (0, 1, or 2)
-    assert!(new_state < 3, 0); // Change 3 to the number of states
+    assert!(new_state < 2, 0); // Change 3 to the number of states
 
     let new_image: Url; // Déclaration de new_image en tant que Url
 
     // Utilisation de match pour déterminer l'URL d'image
     match (new_state) {
-    0 => new_image = url::new_unsafe_from_bytes(b"https://www.handinorme.com/8677-thickbox_default/plaque-signaletique-en-drapeau-plexi-niveau-1-.jpg"),
-    1 => new_image = url::new_unsafe_from_bytes(b"https://www.handinorme.com/8684-thickbox_default/plaque-signaletique-en-drapeau-plexi-niveau-2-.jpg"),
-    2 => new_image = url::new_unsafe_from_bytes(b"https://www.handinorme.com/8529-thickbox_default/plaque-signaletique-en-plexiglas-plexi-niveau-3-.jpg"),
+    0 => new_image = url::new_unsafe_from_bytes(b"https://emerald-rear-parakeet-3.mypinata.cloud/ipfs/QmdCZnYjwCfh3nhZWqzTgFDsahUDkL8EoRXhX5wHEjrhje"),
+    1 => new_image = url::new_unsafe_from_bytes(b"https://emerald-rear-parakeet-3.mypinata.cloud/ipfs/QmTq89J89DjTqES82AxQZ7Jvgn14LacFqQBQC5nZQotUXX"),
     _ => new_image = url::new_unsafe_from_bytes(b""), // Fallback for any other value
 };
 
@@ -113,3 +112,4 @@ module my_nft_contract_ev::my_nft_contract_ev {
     });
 }
 }
+
