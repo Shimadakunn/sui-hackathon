@@ -1,6 +1,6 @@
 <div align="center">
 <img src="https://suipaper.vercel.app/favicon.ico" width="100"/>
-<h1 align="center" style="margin-bottom: 0">SuiPapers</h1>
+<h1 align="center" style="margin-bottom: 0">SuiPapers </h1>
 </div>
 
 ## What is it?
@@ -32,6 +32,8 @@ On our platform, users connect and stake Sui tokens to our liquidity pool. In re
 ```
 0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7
 ```
+
+## [SuiPaper.com](https://suipaper.vercel.app/)
 
 ## Demo
 
