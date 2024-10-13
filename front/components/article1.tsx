@@ -1,24 +1,9 @@
-"use client";
-
 import Image from "next/image";
-import { Header } from "@/components/header";
-import { Calendar, Clock, Share, Flame, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Calendar, Clock } from "lucide-react";
 
-export default function Page() {
+export default function Article1() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
-      <Header />
-      <div className="flex-1">
-        <Article />
-      </div>
-    </div>
-  );
-}
-
-const Article = () => {
-  return (
-    <div className="w-full pt-8 max-w-6xl mb-8">
+    <>
       <h1 className="text-5xl font-bold border-l-4 border-black pl-6">
         Oracle Red Bull Racing powered by the worlds fastest blockchain.
       </h1>
@@ -58,7 +43,7 @@ const Article = () => {
             alt="redbull"
             width={1000}
             height={1000}
-            className="w-[60%] h-auto"
+            className="w-[60%] h-auto border-4 border-black rounded-lg shadow-[4px_4px_0px_0px_#000]"
           />
           <div className="w-[40%] h-auto">
             Formula 1 team Oracle Red Bull Racing announces a multi-year
@@ -100,18 +85,6 @@ const Article = () => {
           second sponsor behind Oracle.
         </div>
       </div>
-      <div className="flex w-full items-center justify-between mt-6">
-        <Button variant="outline">
-          Share <Share size={15} strokeWidth={2.5} className="ml-1" />
-        </Button>
-        <Button>
-          Mint NFT <Flame size={15} strokeWidth={2.5} className="ml-1" />
-        </Button>
-        <Button variant="outline">
-          Next Article{" "}
-          <ChevronRight size={15} strokeWidth={2.5} className="ml-1" />
-        </Button>
-      </div>
-    </div>
+    </>
   );
-};
+}

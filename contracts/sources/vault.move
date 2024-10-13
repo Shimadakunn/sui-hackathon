@@ -51,6 +51,11 @@ module staking_protocol::vault {
         id: UID
     }
 
+    struct Reserve has key {
+        id: UID,
+        balance: u64
+    }
+
 
     /* ========== EVENTS ========== */
 
@@ -75,6 +80,10 @@ module staking_protocol::vault {
     struct RewardPaid has copy, drop {
         user: address,
         reward: u64
+    }
+
+    struct ReserveAdded has copy, drop {
+        amount: u64
     }
 
     /* ========== ERRORS ========== */
@@ -114,6 +123,11 @@ module staking_protocol::vault {
             stakedCoinsTreasury: balance::zero<SUI>(),
         });
 
+        transfer::share_object(Reserve{
+            id: object::new(ctx),
+            balance: 0
+        });
+
         transfer::transfer(AdminCap {id: object::new(ctx)}, tx_context::sender(ctx));
     }
 
@@ -136,8 +150,9 @@ module staking_protocol::vault {
         let totalStakedSupply = balance::value(&treasury.stakedCoinsTreasury);
         let amount = coin::value(&payment);
 
-        farm::mint_to(treasury_cap, amount, account, ctx);
+            
 
+        farm::mint_to(treasury_cap, amount, account, ctx);
         
         // Initialize user mappings if not already present
         if(!vec_map::contains(&userState.balanceOf, &account)){
@@ -292,6 +307,30 @@ module staking_protocol::vault {
         rewardState.updatedAt = clock::timestamp_ms(clock);
 
         event::emit(RewardAdded{reward: amount});
+    }
+
+    /**
+    * @notice Mint FARM tokens and add them to the Reserve
+    * @dev This function allows the admin to mint FARM tokens and add them to the Reserve
+    * @param _ The AdminCap reference.
+    * @param treasury_cap The mutable TreasuryCap<FARM> reference.
+    * @param reserve The mutable Reserve reference.
+    * @param amount The amount of FARM tokens to mint and add to the Reserve.
+    * @param ctx The mutable transaction context.
+    */
+    public entry fun mintAndAddToReserve(
+        _: &AdminCap,
+        treasury_cap: &mut TreasuryCap<FARM>,
+        reserve: &mut Reserve,
+        amount: u64,
+        ctx: &mut TxContext
+    ) {
+        // Mint new FARM tokens
+        farm::mint_to(treasury_cap, amount, tx_context::sender(ctx), ctx);
+        
+        // Convert the minted coins to balance and add to the reserve
+        reserve.balance = reserve.balance + amount;
+        event::emit(ReserveAdded { amount });
     }
 
     /* ========== HELPER FUNCTIONS ========== */

@@ -13,7 +13,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <SuiClientProvider networks={networks} defaultNetwork="testnet">
-        <WalletProvider>{children}</WalletProvider>
+        <WalletProvider
+          stashedWallet={{
+            name: "BSA Starter Pack",
+            network: "testnet",
+          }}
+          autoConnect
+        >
+          {children}
+        </WalletProvider>
       </SuiClientProvider>
     </QueryClientProvider>
   );

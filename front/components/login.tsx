@@ -7,7 +7,7 @@ import { ConnectButton } from "@mysten/dapp-kit";
 
 export function Login() {
   return (
-    <div className="w-full h-[100vh] flex-col relative border overflow-hidden">
+    <div className="w-full h-[100vh] flex-col flex relative overflow-hidden items-center justify-start">
       <Header />
       <Image
         src={`/ill1.svg`}

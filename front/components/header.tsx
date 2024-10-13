@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useCurrentAccount, useSuiClientQuery } from "@mysten/dapp-kit";
 import { formatBalance } from "@/utils/formatBalance";
 import { Wallet } from "lucide-react";
+import { ConnectButton } from "@mysten/dapp-kit";
 
 export function Header() {
   const account = useCurrentAccount();
@@ -23,7 +24,7 @@ export function Header() {
   }, []);
 
   const { data, isPending, isError } = useSuiClientQuery("getAllBalances", {
-    owner: "0xd2278c9f785577cd97af46ccb968f583170fffaf196b935e6b5c6ec1e0e5684a",
+    owner: account?.address as string,
   });
 
   return (
@@ -37,8 +38,16 @@ export function Header() {
         <>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
-              <Wallet size={16} strokeWidth={2.5} />
-              {account.address.slice(0, 4)}...
+              <Wallet
+                size={16}
+                strokeWidth={2.5}
+                className="cursor-pointer"
+                onClick={() => {
+                  navigator.clipboard.writeText(account.address);
+                }}
+              />
+              <ConnectButton />
+              {/* {account.address.slice(0, 4)}... */}
             </div>
             {data && (
               <div className="flex items-center gap-1">

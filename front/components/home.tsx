@@ -1,7 +1,7 @@
 "use client";
 
 import { useCurrentAccount, useSuiClientQuery } from "@mysten/dapp-kit";
-import Article from "./article";
+import HomePage from "./home-page";
 import Stake from "./stake";
 import { useEffect } from "react";
 import { Header } from "./header";
@@ -58,7 +58,7 @@ export default function Home() {
         1e9 >=
         1 ? (
         <div className="flex items-center justify-center w-full h-full">
-          <Article />
+          <HomePage />
         </div>
       ) : (
         <div className="flex items-center justify-center w-full h-[90vh]">
