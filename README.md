@@ -32,3 +32,9 @@ On our platform, users connect and stake Sui tokens to our liquidity pool. In re
 ```
 0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7
 ```
+
+## Demo
+
+https://github.com/user-attachments/assets/72379dd9-4aea-4d45-a142-40da0a7bedcf
+
+
