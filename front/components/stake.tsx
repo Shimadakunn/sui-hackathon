@@ -72,9 +72,7 @@ export default function Stake() {
     tx.moveCall({
       target: `0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7::vault::stake`,
       arguments: [
-        tx.object(
-          "0x42bf6a82948917c7b26b8d54374deea9f1dcc570aee002325f1358297ae9672b"
-        ),
+        tx.object(lastObjectId),
         tx.object(COIN_TREASURY_CAP),
         tx.object(USER_STATE),
         tx.object(REWARD_STATE),
