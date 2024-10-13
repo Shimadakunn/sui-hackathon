@@ -28,7 +28,7 @@ On our platform, users connect and stake Sui tokens to our liquidity pool. In re
 0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7
 ```
 
-### [Immutable NFT](https://suiscan.xyz/testnet/object/0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7/contracts)
+### [Immutable NFT](https://suiscan.xyz/testnet/object/0x862c64336ab8f532818e4974cc7d5ddaf4bee9cb8cee512b0dd7e54da101468b/contracts)
 ```
 0xecab4cedfd51fa77cc1dbb9aa6c012773320d4b304553369ed5d4e75376c02e7
 ```
